@@ -52,7 +52,8 @@ package org.apache.commons.logging;
 public abstract class LogFactory {
 
 	/**
-	 * Convenience method to return a named logger.
+	 * Convenience method to return a named logger. 返回指定日志记录器的方便方法。
+	 *
 	 * @param clazz containing Class from which a log name will be derived
 	 */
 	public static Log getLog(Class<?> clazz) {
@@ -60,7 +61,8 @@ public abstract class LogFactory {
 	}
 
 	/**
-	 * Convenience method to return a named logger.
+	 * Convenience method to return a named logger. 返回指定日志记录器的便利方法。
+	 *
 	 * @param name logical name of the <code>Log</code> instance to be returned
 	 */
 	public static Log getLog(String name) {
@@ -71,18 +73,23 @@ public abstract class LogFactory {
 	/**
 	 * This method only exists for compatibility with unusual Commons Logging API
 	 * usage like e.g. {@code LogFactory.getFactory().getInstance(Class/String)}.
+	 * 此方法仅用于与不常见的公共日志API兼容
+	 * 类似于{@code LogFactory.getFactory(). getinstance (Class/String)}这样的用法。
+	 *
 	 * @see #getInstance(Class)
 	 * @see #getInstance(String)
 	 * @deprecated in favor of {@link #getLog(Class)}/{@link #getLog(String)}
 	 */
 	@Deprecated
 	public static LogFactory getFactory() {
-		return new LogFactory() {};
+		return new LogFactory() {
+		};
 	}
 
 	/**
-	 * Convenience method to return a named logger.
+	 * Convenience method to return a named logger. 返回指定日志记录器的便利方法。
 	 * <p>This variant just dispatches straight to {@link #getLog(Class)}.
+	 *
 	 * @param clazz containing Class from which a log name will be derived
 	 * @deprecated in favor of {@link #getLog(Class)}
 	 */
@@ -92,8 +99,9 @@ public abstract class LogFactory {
 	}
 
 	/**
-	 * Convenience method to return a named logger.
+	 * Convenience method to return a named logger. 返回指定日志记录器的便利方法。
 	 * <p>This variant just dispatches straight to {@link #getLog(String)}.
+	 *
 	 * @param name logical name of the <code>Log</code> instance to be returned
 	 * @deprecated in favor of {@link #getLog(String)}
 	 */

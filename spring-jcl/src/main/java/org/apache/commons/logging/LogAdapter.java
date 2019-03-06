@@ -16,9 +16,6 @@
 
 package org.apache.commons.logging;
 
-import java.io.Serializable;
-import java.util.logging.LogRecord;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.spi.ExtendedLogger;
@@ -27,6 +24,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.spi.LocationAwareLogger;
 
+import java.io.Serializable;
+import java.util.logging.LogRecord;
+
 /**
  * Spring's common JCL adapter behind {@link LogFactory} and {@link LogFactoryService}.
  * Detects the presence of Log4j 2.x / SLF4J, falling back to {@code java.util.logging}.
@@ -34,31 +34,39 @@ import org.slf4j.spi.LocationAwareLogger;
  * @author Juergen Hoeller
  * @since 5.1
  */
+
+/**
+ * Spring的公共JCL适配器后面的{@link LogFactory}和{@link LogFactoryService}。
+ * 检测Log4j 2的存在。x / SLF4J，回到{@code java.util.logging}。
+ * <p>
+ * 作者Juergen Hoeller
+ *
+ * @since 5.1
+ */
 final class LogAdapter {
 
 	private static LogApi logApi = LogApi.JUL;
 
+	//这一步用来做适配选择，能选择的日志方式也是有
 	static {
 		ClassLoader cl = LogAdapter.class.getClassLoader();
 		try {
-			// Try Log4j 2.x API
+			// Try Log4j 2.x API  尝试Log4j 2.x的API
+			// 这里用来验证是否存在相应的jar
 			Class.forName("org.apache.logging.log4j.spi.ExtendedLogger", false, cl);
 			logApi = LogApi.LOG4J;
-		}
-		catch (ClassNotFoundException ex1) {
+		} catch (ClassNotFoundException ex1) {
 			try {
-				// Try SLF4J 1.7 SPI
+				// Try SLF4J 1.7 SPI 尝试
 				Class.forName("org.slf4j.spi.LocationAwareLogger", false, cl);
 				logApi = LogApi.SLF4J_LAL;
-			}
-			catch (ClassNotFoundException ex2) {
+			} catch (ClassNotFoundException ex2) {
 				try {
-					// Try SLF4J 1.7 API
+					// Try SLF4J 1.7 API  尝试
 					Class.forName("org.slf4j.Logger", false, cl);
 					logApi = LogApi.SLF4J;
-				}
-				catch (ClassNotFoundException ex3) {
-					// Keep java.util.logging as default
+				} catch (ClassNotFoundException ex3) {
+					// Keep java.util.logging as default 保持java.util.日志为默认
 				}
 			}
 		}
@@ -70,7 +78,8 @@ final class LogAdapter {
 
 
 	/**
-	 * Create an actual {@link Log} instance for the selected API.
+	 * Create an actual {@link Log} instance for the selected API. 为所选API创建一个实际的{@link Log}实例。
+	 *
 	 * @param name the logger name
 	 */
 	public static Log createLog(String name) {
@@ -236,12 +245,10 @@ final class LogAdapter {
 				// for message objects in case of "{}" sequences (SPR-16226)
 				if (exception != null) {
 					this.logger.logIfEnabled(FQCN, level, null, (String) message, exception);
-				}
-				else {
+				} else {
 					this.logger.logIfEnabled(FQCN, level, null, (String) message);
 				}
-			}
-			else {
+			} else {
 				this.logger.logIfEnabled(FQCN, level, null, message, exception);
 			}
 		}
@@ -543,8 +550,7 @@ final class LogAdapter {
 				LogRecord rec;
 				if (message instanceof LogRecord) {
 					rec = (LogRecord) message;
-				}
-				else {
+				} else {
 					rec = new LocationResolvingLogRecord(level, String.valueOf(message));
 					rec.setLoggerName(this.name);
 					rec.setResourceBundleName(logger.getResourceBundleName());
@@ -609,8 +615,7 @@ final class LogAdapter {
 				String className = element.getClassName();
 				if (FQCN.equals(className)) {
 					found = true;
-				}
-				else if (found) {
+				} else if (found) {
 					sourceClassName = className;
 					sourceMethodName = element.getMethodName();
 					break;

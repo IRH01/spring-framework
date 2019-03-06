@@ -17,7 +17,7 @@
 package org.apache.commons.logging.impl;
 
 /**
- * Originally a simple Commons Logging provider configured by system properties.
+ * Originally a simple Commons Logging provider configured by system properties.最初是一个由系统属性配置的简单公共日志提供程序。
  * Deprecated in {@code spring-jcl}, effectively equivalent to {@link NoOpLog}.
  *
  * <p>Instead of instantiating this directly, call {@code LogFactory#getLog(Class/String)}

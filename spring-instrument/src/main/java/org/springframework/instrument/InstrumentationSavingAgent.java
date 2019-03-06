@@ -21,11 +21,12 @@ import java.lang.instrument.Instrumentation;
 /**
  * Java agent that saves the {@link Instrumentation} interface from the JVM
  * for later use.
+ * Java代理，它从JVM中保存{@link Instrumentation}接口供以后使用。
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
- * @since 2.0
  * @see org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver
+ * @since 2.0
  */
 public final class InstrumentationSavingAgent {
 
@@ -38,6 +39,7 @@ public final class InstrumentationSavingAgent {
 
 	/**
 	 * Save the {@link Instrumentation} interface exposed by the JVM.
+	 * 保存JVM公开的{@link Instrumentation}接口。
 	 */
 	public static void premain(String agentArgs, Instrumentation inst) {
 		instrumentation = inst;
@@ -46,6 +48,8 @@ public final class InstrumentationSavingAgent {
 	/**
 	 * Save the {@link Instrumentation} interface exposed by the JVM.
 	 * This method is required to dynamically load this Agent with the Attach API.
+	 * 保存JVM公开的{@link Instrumentation}接口。
+	 * 使用Attach API动态加载此代理需要此方法。
 	 */
 	public static void agentmain(String agentArgs, Instrumentation inst) {
 		instrumentation = inst;
@@ -58,11 +62,27 @@ public final class InstrumentationSavingAgent {
 	 * conditional checking with respect to agent availability, consider using
 	 * {@link org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver#getInstrumentation()}
 	 * instead - which will work without the agent class in the classpath as well.
+	 *
 	 * @return the {@code Instrumentation} instance previously saved when
 	 * the {@link #premain} or {@link #agentmain} methods was called by the JVM;
 	 * will be {@code null} if this class was not used as Java agent when this
 	 * JVM was started or it wasn't installed as agent using the Attach API.
 	 * @see org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver#getInstrumentation()
+	 */
+	/**
+	 * 返回JVM公开的{@link Instrumentation}接口。
+	 * <p>注意，这个代理类在类路径中通常不可用
+	 * 除非在JVM启动时实际指定了代理。如果你打算这么做的话
+	 * 关于代理可用性的条件检查，请考虑使用
+	 * {@link org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver # getInstrumentation ()}
+	 * 相反，如果类路径中没有代理类，它也可以工作。
+	 * <p>
+	 * 返回先前保存的{@code Instrumentation}实例
+	 * JVM调用{@link #premain}或{@link #agentmain}方法;
+	 * 将是{@code null}，如果这个类在这个时候没有被用作Java代理
+	 * 使用Attach API启动JVM或未将其安装为代理。
+	 *
+	 * @see org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver # getInstrumentation ()
 	 */
 	public static Instrumentation getInstrumentation() {
 		return instrumentation;

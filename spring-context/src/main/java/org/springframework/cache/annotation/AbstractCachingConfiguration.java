@@ -16,9 +16,6 @@
 
 package org.springframework.cache.annotation;
 
-import java.util.Collection;
-import java.util.function.Supplier;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.interceptor.CacheErrorHandler;
@@ -31,15 +28,20 @@ import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Collection;
+import java.util.function.Supplier;
+
 /**
  * Abstract base {@code @Configuration} class providing common structure
  * for enabling Spring's annotation-driven cache management capability.
+ * 抽象提供公共结构的基类{@code @Configuration}
+ * *用于启用Spring的注解驱动的缓存管理功能。
  *
  * @author Chris Beams
  * @author Stephane Nicoll
  * @author Juergen Hoeller
- * @since 3.1
  * @see EnableCaching
+ * @since 3.1
  */
 @Configuration
 public abstract class AbstractCachingConfiguration implements ImportAware {
@@ -87,6 +89,7 @@ public abstract class AbstractCachingConfiguration implements ImportAware {
 
 	/**
 	 * Extract the configuration from the nominated {@link CachingConfigurer}.
+	 * 从指定的{@link CachingConfigurer}中提取配置。
 	 */
 	protected void useCachingConfigurer(CachingConfigurer config) {
 		this.cacheManager = config::cacheManager;

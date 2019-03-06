@@ -32,7 +32,7 @@ package org.apache.commons.logging;
  * <li>error</li>
  * <li>fatal (the most serious)</li>
  * </ol>
- *
+ * <p>
  * The mapping of these log levels to the concepts used by the underlying
  * logging system is implementation dependent.
  * The implementation should ensure, though, that this ordering behaves
@@ -61,11 +61,12 @@ package org.apache.commons.logging;
 public interface Log {
 
 	/**
-	 * Is fatal logging currently enabled?
-	 * <p>Call this method to prevent having to perform expensive operations
+	 * Is fatal logging currently enabled? 当前是否启用了致命日志记录?
+	 * <p>Call this method to prevent having to perform expensive operations 调用此方法以避免执行昂贵的操作
 	 * (for example, <code>String</code> concatenation)
-	 * when the log level is more than fatal.
-	 * @return true if fatal is enabled in the underlying logger.
+	 * when the log level is more than fatal. 当日志级别超过致命级别时。
+	 *
+	 * @return true if fatal is enabled in the underlying logger. 如果在底层日志记录器中启用了fatal，则为true。
 	 */
 	boolean isFatalEnabled();
 
@@ -76,6 +77,13 @@ public interface Log {
 	 * when the log level is more than error.
 	 * @return true if error is enabled in the underlying logger.
 	 */
+	/**
+	 * 当前是否启用错误日志记录?
+	 * <p>调用此方法以避免执行昂贵的操作
+	 * (例如<code>String</code> concatenation)
+	 * 当日志级别大于错误时。
+	 * 如果在底层日志记录器中启用了错误，则返回true。
+	 */
 	boolean isErrorEnabled();
 
 	/**
@@ -83,7 +91,16 @@ public interface Log {
 	 * <p>Call this method to prevent having to perform expensive operations
 	 * (for example, <code>String</code> concatenation)
 	 * when the log level is more than warn.
+	 *
 	 * @return true if warn is enabled in the underlying logger.
+	 */
+	/**
+	 * 警告日志当前是否启用?
+	 * <p>调用此方法以避免执行昂贵的操作
+	 * (例如<code>String</code> concatenation)
+	 * 当日志级别大于warn时。
+	 * <p>
+	 * 如果在底层日志记录器中启用warn，则返回true。
 	 */
 	boolean isWarnEnabled();
 
@@ -92,7 +109,16 @@ public interface Log {
 	 * <p>Call this method to prevent having to perform expensive operations
 	 * (for example, <code>String</code> concatenation)
 	 * when the log level is more than info.
+	 *
 	 * @return true if info is enabled in the underlying logger.
+	 */
+	/**
+	 * 当前是否启用了信息日志记录?
+	 * <p>调用此方法以避免执行昂贵的操作
+	 * (例如<code>String</code> concatenation)
+	 * 当日志级别大于info级别时。
+	 * <p>
+	 * 如果在底层日志程序中启用了info，则返回true。
 	 */
 	boolean isInfoEnabled();
 
@@ -101,7 +127,16 @@ public interface Log {
 	 * <p>Call this method to prevent having to perform expensive operations
 	 * (for example, <code>String</code> concatenation)
 	 * when the log level is more than debug.
+	 *
 	 * @return true if debug is enabled in the underlying logger.
+	 */
+	/**
+	 * 当前是否启用调试日志记录?
+	 * <p>调用此方法以避免执行昂贵的操作
+	 * (例如<code>String</code> concatenation)
+	 * 当日志级别大于调试级别时。
+	 * <p>
+	 * 如果在底层日志程序中启用了调试，则返回true。
 	 */
 	boolean isDebugEnabled();
 
@@ -110,86 +145,107 @@ public interface Log {
 	 * <p>Call this method to prevent having to perform expensive operations
 	 * (for example, <code>String</code> concatenation)
 	 * when the log level is more than trace.
+	 *
 	 * @return true if trace is enabled in the underlying logger.
+	 */
+	/**
+	 * 当前是否启用跟踪日志记录?
+	 * <p>调用此方法以避免执行昂贵的操作
+	 * (例如<code>String</code> concatenation)
+	 * 当日志级别大于跟踪级别时。
+	 * <p>
+	 * 如果在底层日志记录器中启用跟踪，则返回true。
 	 */
 	boolean isTraceEnabled();
 
 
 	/**
-	 * Logs a message with fatal log level.
+	 * Logs a message with fatal log level. 记录具有致命日志级别的消息。
+	 *
 	 * @param message log this message
 	 */
 	void fatal(Object message);
 
 	/**
-	 * Logs an error with fatal log level.
+	 * Logs an error with fatal log level. 记录具有致命日志级别的错误。
+	 *
 	 * @param message log this message
-	 * @param t log this cause
+	 * @param t       log this cause
 	 */
 	void fatal(Object message, Throwable t);
 
 	/**
-	 * Logs a message with error log level.
+	 * Logs a message with error log level. 使用错误日志级别记录消息。
+	 *
 	 * @param message log this message
 	 */
 	void error(Object message);
 
 	/**
 	 * Logs an error with error log level.
+	 *
 	 * @param message log this message
-	 * @param t log this cause
+	 * @param t       log this cause
 	 */
 	void error(Object message, Throwable t);
 
 	/**
 	 * Logs a message with warn log level.
+	 *
 	 * @param message log this message
 	 */
 	void warn(Object message);
 
 	/**
 	 * Logs an error with warn log level.
+	 *
 	 * @param message log this message
-	 * @param t log this cause
+	 * @param t       log this cause
 	 */
 	void warn(Object message, Throwable t);
 
 	/**
 	 * Logs a message with info log level.
+	 *
 	 * @param message log this message
 	 */
 	void info(Object message);
 
 	/**
 	 * Logs an error with info log level.
+	 *
 	 * @param message log this message
-	 * @param t log this cause
+	 * @param t       log this cause
 	 */
 	void info(Object message, Throwable t);
 
 	/**
 	 * Logs a message with debug log level.
+	 *
 	 * @param message log this message
 	 */
 	void debug(Object message);
 
 	/**
 	 * Logs an error with debug log level.
+	 *
 	 * @param message log this message
-	 * @param t log this cause
+	 * @param t       log this cause
 	 */
 	void debug(Object message, Throwable t);
 
 	/**
 	 * Logs a message with trace log level.
+	 *
 	 * @param message log this message
 	 */
 	void trace(Object message);
 
 	/**
 	 * Logs an error with trace log level.
+	 *
 	 * @param message log this message
-	 * @param t log this cause
+	 * @param t       log this cause
 	 */
 	void trace(Object message, Throwable t);
 
