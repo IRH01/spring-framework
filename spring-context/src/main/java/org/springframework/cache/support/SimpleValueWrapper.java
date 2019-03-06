@@ -22,6 +22,9 @@ import org.springframework.lang.Nullable;
 /**
  * Straightforward implementation of {@link org.springframework.cache.Cache.ValueWrapper},
  * simply holding the value as given at construction and returning it from {@link #get()}.
+ * <p>
+ * *直接实现{@link org.springframework.cache.Cache.ValueWrapper}，
+ * *只需要在构造时保存给定的值，并从{@link #get()}返回它。
  *
  * @author Costin Leau
  * @since 3.1
@@ -34,6 +37,9 @@ public class SimpleValueWrapper implements ValueWrapper {
 
 	/**
 	 * Create a new SimpleValueWrapper instance for exposing the given value.
+	 * <p>
+	 * 创建一个新的SimpleValueWrapper实例来公开给定的值。
+	 *
 	 * @param value the value to expose (may be {@code null})
 	 */
 	public SimpleValueWrapper(@Nullable Object value) {
@@ -43,6 +49,8 @@ public class SimpleValueWrapper implements ValueWrapper {
 
 	/**
 	 * Simply returns the value as given at construction time.
+	 * <p>
+	 * 简单地返回在构造时给定的值。
 	 */
 	@Override
 	@Nullable

@@ -16,12 +16,7 @@
 
 package org.springframework.cache.annotation;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Group annotation for multiple cache annotations (of different or the same type).
@@ -31,6 +26,18 @@ import java.lang.annotation.Target;
  *
  * @author Costin Leau
  * @author Chris Beams
+ * @since 3.1
+ */
+
+/**
+ * 为多个缓存注释(不同或相同类型)分组注释。
+ *
+ * <p>此注释可作为<em>元注释</em>创建自定义
+ * <em>使用属性覆盖组合注释</em>。
+ * <p>
+ * 作者Costin Leau
+ * 作者Chris beam
+ *
  * @since 3.1
  */
 @Target({ElementType.METHOD, ElementType.TYPE})

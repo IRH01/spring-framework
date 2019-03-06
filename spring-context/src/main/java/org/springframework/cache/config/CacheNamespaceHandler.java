@@ -16,12 +16,11 @@
 
 package org.springframework.cache.config;
 
-import org.w3c.dom.Element;
-
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 import org.springframework.util.StringUtils;
+import org.w3c.dom.Element;
 
 /**
  * {@code NamespaceHandler} allowing for the configuration of declarative
@@ -32,6 +31,16 @@ import org.springframework.util.StringUtils;
  *
  * @author Costin Leau
  * @since 3.1
+ * / * *
+ * * {@code NamespaceHandler}允许声明式配置
+ * *使用XML或注释进行缓存管理。
+ * *
+ * * <p>这个名称空间处理程序是
+ * * Spring缓存管理工具。
+ * *
+ * *作者Costin Leau
+ * * @since 3.1
+ * * /
  */
 public class CacheNamespaceHandler extends NamespaceHandlerSupport {
 

@@ -16,17 +16,17 @@
 
 package org.springframework.cache.concurrent;
 
+import org.springframework.cache.support.AbstractValueAdaptingCache;
+import org.springframework.core.serializer.support.SerializationDelegate;
+import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-
-import org.springframework.cache.support.AbstractValueAdaptingCache;
-import org.springframework.core.serializer.support.SerializationDelegate;
-import org.springframework.lang.Nullable;
-import org.springframework.util.Assert;
 
 /**
  * Simple {@link org.springframework.cache.Cache} implementation based on the
@@ -46,6 +46,26 @@ import org.springframework.util.Assert;
  * @author Stephane Nicoll
  * @since 3.1
  */
+
+/**
+ * 简单{@link org.springframework.cache。的缓存}实现
+ * 核心JDK {@code java.util。并发}包。
+ *
+ * <p>用于测试或简单的缓存场景，通常结合使用
+ * 具有{@link org.springframework.cache.support。SimpleCacheManager}或
+ * 动态通过{@link ConcurrentMapCacheManager}。
+ * <p>
+ * 注:</b> As {@link ConcurrentHashMap}(使用默认实现)
+ * 不允许存储{@code null}值，该类将替换
+ * 它们带有预定义的内部对象。这种行为可以通过
+ * {@link #ConcurrentMapCache(String, ConcurrentMap, boolean)}构造函数。
+ * <p>
+ * 作者Costin Leau
+ * 作者Juergen Hoeller
+ * 作者Stephane Nicoll
+ *
+ * @since 3.1
+ */
 public class ConcurrentMapCache extends AbstractValueAdaptingCache {
 
 	private final String name;
@@ -58,6 +78,8 @@ public class ConcurrentMapCache extends AbstractValueAdaptingCache {
 
 	/**
 	 * Create a new ConcurrentMapCache with the specified name.
+	 * 创建具有指定名称的新ConcurrentMapCache。
+	 *
 	 * @param name the name of the cache
 	 */
 	public ConcurrentMapCache(String name) {
@@ -66,9 +88,10 @@ public class ConcurrentMapCache extends AbstractValueAdaptingCache {
 
 	/**
 	 * Create a new ConcurrentMapCache with the specified name.
-	 * @param name the name of the cache
+	 *
+	 * @param name            the name of the cache
 	 * @param allowNullValues whether to accept and convert {@code null}
-	 * values for this cache
+	 *                        values for this cache
 	 */
 	public ConcurrentMapCache(String name, boolean allowNullValues) {
 		this(name, new ConcurrentHashMap<>(256), allowNullValues);
@@ -77,10 +100,11 @@ public class ConcurrentMapCache extends AbstractValueAdaptingCache {
 	/**
 	 * Create a new ConcurrentMapCache with the specified name and the
 	 * given internal {@link ConcurrentMap} to use.
-	 * @param name the name of the cache
-	 * @param store the ConcurrentMap to use as an internal store
+	 *
+	 * @param name            the name of the cache
+	 * @param store           the ConcurrentMap to use as an internal store
 	 * @param allowNullValues whether to allow {@code null} values
-	 * (adapting them to an internal null holder value)
+	 *                        (adapting them to an internal null holder value)
 	 */
 	public ConcurrentMapCache(String name, ConcurrentMap<Object, Object> store, boolean allowNullValues) {
 		this(name, store, allowNullValues, null);
@@ -91,16 +115,17 @@ public class ConcurrentMapCache extends AbstractValueAdaptingCache {
 	 * given internal {@link ConcurrentMap} to use. If the
 	 * {@link SerializationDelegate} is specified,
 	 * {@link #isStoreByValue() store-by-value} is enabled
-	 * @param name the name of the cache
-	 * @param store the ConcurrentMap to use as an internal store
+	 *
+	 * @param name            the name of the cache
+	 * @param store           the ConcurrentMap to use as an internal store
 	 * @param allowNullValues whether to allow {@code null} values
-	 * (adapting them to an internal null holder value)
-	 * @param serialization the {@link SerializationDelegate} to use
-	 * to serialize cache entry or {@code null} to store the reference
+	 *                        (adapting them to an internal null holder value)
+	 * @param serialization   the {@link SerializationDelegate} to use
+	 *                        to serialize cache entry or {@code null} to store the reference
 	 * @since 4.3
 	 */
 	protected ConcurrentMapCache(String name, ConcurrentMap<Object, Object> store,
-			boolean allowNullValues, @Nullable SerializationDelegate serialization) {
+								 boolean allowNullValues, @Nullable SerializationDelegate serialization) {
 
 		super(allowNullValues);
 		Assert.notNull(name, "Name must not be null");
@@ -115,6 +140,7 @@ public class ConcurrentMapCache extends AbstractValueAdaptingCache {
 	 * Return whether this cache stores a copy of each entry ({@code true}) or
 	 * a reference ({@code false}, default). If store by value is enabled, each
 	 * entry in the cache must be serializable.
+	 *
 	 * @since 4.3
 	 */
 	public final boolean isStoreByValue() {
@@ -144,8 +170,7 @@ public class ConcurrentMapCache extends AbstractValueAdaptingCache {
 		return (T) fromStoreValue(this.store.computeIfAbsent(key, r -> {
 			try {
 				return toStoreValue(valueLoader.call());
-			}
-			catch (Throwable ex) {
+			} catch (Throwable ex) {
 				throw new ValueRetrievalException(key, valueLoader, ex);
 			}
 		}));
@@ -179,13 +204,11 @@ public class ConcurrentMapCache extends AbstractValueAdaptingCache {
 		if (this.serialization != null) {
 			try {
 				return serializeValue(this.serialization, storeValue);
-			}
-			catch (Throwable ex) {
+			} catch (Throwable ex) {
 				throw new IllegalArgumentException("Failed to serialize cache value '" + userValue +
 						"'. Does it implement Serializable?", ex);
 			}
-		}
-		else {
+		} else {
 			return storeValue;
 		}
 	}
@@ -195,8 +218,7 @@ public class ConcurrentMapCache extends AbstractValueAdaptingCache {
 		try {
 			serialization.serialize(storeValue, out);
 			return out.toByteArray();
-		}
-		finally {
+		} finally {
 			out.close();
 		}
 	}
@@ -206,12 +228,10 @@ public class ConcurrentMapCache extends AbstractValueAdaptingCache {
 		if (storeValue != null && this.serialization != null) {
 			try {
 				return super.fromStoreValue(deserializeValue(this.serialization, storeValue));
-			}
-			catch (Throwable ex) {
+			} catch (Throwable ex) {
 				throw new IllegalArgumentException("Failed to deserialize cache value '" + storeValue + "'", ex);
 			}
-		}
-		else {
+		} else {
 			return super.fromStoreValue(storeValue);
 		}
 
@@ -221,8 +241,7 @@ public class ConcurrentMapCache extends AbstractValueAdaptingCache {
 		ByteArrayInputStream in = new ByteArrayInputStream((byte[]) storeValue);
 		try {
 			return serialization.deserialize(in);
-		}
-		finally {
+		} finally {
 			in.close();
 		}
 	}

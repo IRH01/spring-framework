@@ -16,8 +16,6 @@
 
 package org.springframework.cache.config;
 
-import org.w3c.dom.Element;
-
 import org.springframework.aop.config.AopNamespaceUtils;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.RuntimeBeanReference;
@@ -31,6 +29,7 @@ import org.springframework.cache.interceptor.CacheInterceptor;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
+import org.w3c.dom.Element;
 
 /**
  * {@link org.springframework.beans.factory.xml.BeanDefinitionParser}
@@ -52,6 +51,27 @@ import org.springframework.util.StringUtils;
  * @author Costin Leau
  * @author Stephane Nicoll
  * @since 3.1
+ * / * *
+ * * { @link org.springframework.beans.factory.xml.BeanDefinitionParser }
+ * *实现，允许用户轻松配置所有
+ * *启用注解驱动缓存所需的基础架构bean
+ * *界定。
+ * *
+ * 默认情况下，所有代理都作为JDK代理创建。这可能导致
+ * *如果你将对象注入到具体的类中，会出现一些问题
+ * *比接口。要克服这个限制，可以设置
+ * * '{@code proxy-target-class}'属性为'{@code true}'，将
+ * *导致创建基于类的代理。
+ * *
+ * 如果存在JSR-107 API和Spring的JCache实现，
+ * 处理带注释的方法所需的基础结构bean
+ * *使用{@code CacheResult}、{@code CachePut}、{@code CacheRemove}或
+ * * {@code CacheRemoveAll}也被注册。
+ * *
+ * *作者Costin Leau
+ * *作者Stephane Nicoll
+ * * @since 3.1
+ * * /
  */
 class AnnotationDrivenCacheBeanDefinitionParser implements BeanDefinitionParser {
 
@@ -72,11 +92,15 @@ class AnnotationDrivenCacheBeanDefinitionParser implements BeanDefinitionParser 
 				"org.springframework.cache.jcache.interceptor.DefaultJCacheOperationSource", classLoader);
 	}
 
-
 	/**
 	 * Parses the '{@code <cache:annotation-driven>}' tag. Will
 	 * {@link AopNamespaceUtils#registerAutoProxyCreatorIfNecessary
 	 * register an AutoProxyCreator} with the container as necessary.
+	 * / * *
+	 * *解析“{@code <cache:annotation-driven>}”标签。将
+	 * * {@link AopNamespaceUtils # registerAutoProxyCreatorIfNecessary
+	 * *必要时向容器注册AutoProxyCreator}。
+	 * * /
 	 */
 	@Override
 	@Nullable
@@ -85,8 +109,7 @@ class AnnotationDrivenCacheBeanDefinitionParser implements BeanDefinitionParser 
 		if ("aspectj".equals(mode)) {
 			// mode="aspectj"
 			registerCacheAspect(element, parserContext);
-		}
-		else {
+		} else {
 			// mode="proxy"
 			registerCacheAdvisor(element, parserContext);
 		}
@@ -113,6 +136,11 @@ class AnnotationDrivenCacheBeanDefinitionParser implements BeanDefinitionParser 
 	 * Parse the cache resolution strategy to use. If a 'cache-resolver' attribute
 	 * is set, it is injected. Otherwise the 'cache-manager' is set. If {@code setBoth}
 	 * is {@code true}, both service are actually injected.
+	 * / * *
+	 * *解析要使用的缓存解析策略。如果是cache-resolver属性
+	 * *被设置，它被注入。否则设置cache-manager。如果{@code setBoth}
+	 * *是{@code true}，两个服务都被实际注入。
+	 * * /
 	 */
 	private static void parseCacheResolution(Element element, BeanDefinition def, boolean setBoth) {
 		String name = element.getAttribute("cache-resolver");
@@ -136,6 +164,7 @@ class AnnotationDrivenCacheBeanDefinitionParser implements BeanDefinitionParser 
 
 	/**
 	 * Configure the necessary infrastructure to support the Spring's caching annotations.
+	 * 配置必要的基础设施以支持Spring的缓存注释。
 	 */
 	private static class SpringCachingConfigurer {
 
@@ -186,6 +215,16 @@ class AnnotationDrivenCacheBeanDefinitionParser implements BeanDefinitionParser 
 		 *   &lt;property name="keyGenerator" ref="keyGenerator"/&gt;
 		 * &lt;/bean&gt;
 		 * </pre>
+		 * <p>
+		 * / * *
+		 * 注册缓存方面。
+		 * * < pre类=“代码”>
+		 * bean id="cacheAspect" class="org.springframe .cache.aspectj. "AnnotationCacheAspect aspectOf“工厂方法=比;
+		 * * &lt;属性名="cacheManager" ref="cacheManager"/&gt;
+		 * 属性名="keyGenerator" ref="keyGenerator"/&gt;
+		 * * & lt;/ bean&gt;
+		 * * < / pre >
+		 * * /
 		 */
 		private static void registerCacheAspect(Element element, ParserContext parserContext) {
 			if (!parserContext.getRegistry().containsBeanDefinition(CacheManagementConfigUtils.CACHE_ASPECT_BEAN_NAME)) {
@@ -202,6 +241,7 @@ class AnnotationDrivenCacheBeanDefinitionParser implements BeanDefinitionParser 
 
 	/**
 	 * Configure the necessary infrastructure to support the standard JSR-107 caching annotations.
+	 * 配置必要的基础设施以支持标准的JSR-107缓存注释。
 	 */
 	private static class JCacheCachingConfigurer {
 

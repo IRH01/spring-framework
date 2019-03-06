@@ -35,9 +35,28 @@ import org.springframework.lang.Nullable;
  *
  * @author Chris Beams
  * @author Stephane Nicoll
- * @since 3.1
  * @see EnableCaching
  * @see CachingConfigurerSupport
+ * @since 3.1
+ */
+
+/**
+ * 接口由@{@link org.springframework.context.annotation.Configuration
+ * 用@{@link EnableCaching}注释的类，它希望或需要这样做
+ * 明确指定如何解析缓存以及如何为注释驱动生成键
+ * 缓存管理。考虑扩展{@link CachingConfigurerSupport}，它提供了
+ * 所有接口方法的存根实现。
+ *
+ * <p>一般示例和上下文请参见@{@link EnableCaching};看到
+ * {@link #cacheManager()}、{@link #cacheResolver()}和{@link #keyGenerator()}
+ * 获取详细说明。
+ * <p>
+ * 作者Chris beam
+ * 作者Stephane Nicoll
+ *
+ * @see EnableCaching
+ * @see CachingConfigurerSupport
+ * @since 3.1
  */
 public interface CachingConfigurer {
 
@@ -62,6 +81,28 @@ public interface CachingConfigurer {
 	 * }
 	 * </pre>
 	 * See @{@link EnableCaching} for more complete examples.
+	 */
+	/**
+	 * 返回用于注释驱动缓存的缓存管理器bean
+	 * 管理。将初始化默认的{@link CacheResolver}
+	 * 在后台使用这个缓存管理器。更细粒度
+	 * 管理缓存解析，考虑设置
+	 * 直接* {@link CacheResolver}
+	 * <p>实现必须显式声明
+	 * { @link org.springframework.context.annotation。@ Bean } Bean。
+	 * < pre类=“代码”>
+	 * & # 064;配置
+	 * & # 064;EnableCaching
+	 * 公共类AppConfig扩展了CachingConfigurerSupport {
+	 * Bean //很重要!
+	 * & # 064;覆盖
+	 * 公共CacheManager () {
+	 * //配置并返回CacheManager实例
+	 * }
+	 * / /……
+	 * }
+	 * < / pre >
+	 * 参见@{@link EnableCaching}获取更完整的示例。
 	 */
 	@Nullable
 	CacheManager cacheManager();
@@ -88,6 +129,28 @@ public interface CachingConfigurer {
 	 * </pre>
 	 * See {@link EnableCaching} for more complete examples.
 	 */
+	/**
+	 * 返回用于解析常规缓存的{@link CacheResolver} bean
+	 * 注释驱动的缓存管理。这是一种更强大的替代方案
+	 * 指定要使用的{@link CacheManager}选项。
+	 * <p>如果同时设置{@link #cacheManager()}和{@code #cacheResolver()}，
+	 * 缓存管理器被忽略。
+	 * <p>实现必须显式声明
+	 * { @link org.springframework.context.annotation。@ Bean } Bean。
+	 * < pre类=“代码”>
+	 * & # 064;配置
+	 * & # 064;EnableCaching
+	 * 公共类AppConfig扩展了CachingConfigurerSupport {
+	 * Bean //很重要!
+	 * & # 064;覆盖
+	 * public CacheResolver () {
+	 * //配置并返回CacheResolver实例
+	 * }
+	 * / /……
+	 * }
+	 * < / pre >
+	 * 参见{@link EnableCaching}获得更完整的示例。
+	 */
 	@Nullable
 	CacheResolver cacheResolver();
 
@@ -108,6 +171,24 @@ public interface CachingConfigurer {
 	 * }
 	 * </pre>
 	 * See @{@link EnableCaching} for more complete examples.
+	 */
+	/**
+	 * 返回用于注释驱动的缓存管理的密钥生成器bean。
+	 * 实现必须显式声明
+	 * { @link org.springframework.context.annotation。@ Bean } Bean。
+	 * < pre类=“代码”>
+	 * & # 064;配置
+	 * & # 064;EnableCaching
+	 * 公共类AppConfig扩展了CachingConfigurerSupport {
+	 * Bean //很重要!
+	 * & # 064;覆盖
+	 * 公共密钥生成器密钥生成器(){
+	 * //配置并返回KeyGenerator实例
+	 * }
+	 * / /……
+	 * }
+	 * < / pre >
+	 * 参见@{@link EnableCaching}获取更完整的示例。
 	 */
 	@Nullable
 	KeyGenerator keyGenerator();
@@ -131,6 +212,26 @@ public interface CachingConfigurer {
 	 * }
 	 * </pre>
 	 * See @{@link EnableCaching} for more complete examples.
+	 */
+	/**
+	 * 返回用于处理缓存相关错误的{@link CacheErrorHandler}。
+	 * <p>默认为{@link org.springframework.cache.interceptor.SimpleCacheErrorHandler}
+	 * 使用*，并简单地将异常返回给客户端。
+	 * <p>实现必须显式声明
+	 * { @link org.springframework.context.annotation。@ Bean } Bean。
+	 * < pre类=“代码”>
+	 * & # 064;配置
+	 * & # 064;EnableCaching
+	 * 公共类AppConfig扩展了CachingConfigurerSupport {
+	 * Bean //很重要!
+	 * & # 064;覆盖
+	 * public CacheErrorHandler () {
+	 * //配置并返回CacheErrorHandler实例
+	 * }
+	 * / /……
+	 * }
+	 * < / pre >
+	 * 参见@{@link EnableCaching}获取更完整的示例。
 	 */
 	@Nullable
 	CacheErrorHandler errorHandler();

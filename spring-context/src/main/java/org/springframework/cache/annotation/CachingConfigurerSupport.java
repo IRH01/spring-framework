@@ -27,8 +27,18 @@ import org.springframework.lang.Nullable;
  * sub-classes to override only the methods they're interested in.
  *
  * @author Stephane Nicoll
- * @since 4.1
  * @see CachingConfigurer
+ * @since 4.1
+ */
+
+/**
+ * 一个允许空方法的{@link CachingConfigurer}实现
+ * 子类只覆盖它们感兴趣的方法。
+ * <p>
+ * 作者Stephane Nicoll
+ *
+ * @see CachingConfigurer
+ * @since 4.1
  */
 public class CachingConfigurerSupport implements CachingConfigurer {
 

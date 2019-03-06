@@ -16,14 +16,14 @@
 
 package org.springframework.cache.annotation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.AdviceModeImportSelector;
 import org.springframework.context.annotation.AutoProxyRegistrar;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Selects which implementation of {@link AbstractCachingConfiguration} should
@@ -34,9 +34,24 @@ import org.springframework.util.StringUtils;
  *
  * @author Chris Beams
  * @author Stephane Nicoll
- * @since 3.1
  * @see EnableCaching
  * @see ProxyCachingConfiguration
+ * @since 3.1
+ */
+
+/**
+ * 选择{@link AbstractCachingConfiguration}的哪个实现应该
+ * 基于导入时{@link EnableCaching#mode}的值使用
+ * {@code @Configuration}类。
+ *
+ * <p>检测JSR-107的存在，并相应地启用JCache支持。
+ * <p>
+ * 作者Chris beam
+ * 作者Stephane Nicoll
+ *
+ * @see EnableCaching
+ * @see ProxyCachingConfiguration
+ * @since 3.1
  */
 public class CachingConfigurationSelector extends AdviceModeImportSelector<EnableCaching> {
 
@@ -66,6 +81,11 @@ public class CachingConfigurationSelector extends AdviceModeImportSelector<Enabl
 	 * for {@code PROXY} and {@code ASPECTJ} values of {@link EnableCaching#mode()},
 	 * respectively. Potentially includes corresponding JCache configuration as well.
 	 */
+	/**
+	 * 返回{@link ProxyCachingConfiguration}或{@code AspectJCachingConfiguration}
+	 * 对于{@code PROXY} and {@code ASPECTJ} values of {@link EnableCaching#mode()},
+	 * 分别。还可能包括相应的JCache配置。
+	 */
 	@Override
 	public String[] selectImports(AdviceMode adviceMode) {
 		switch (adviceMode) {
@@ -82,6 +102,10 @@ public class CachingConfigurationSelector extends AdviceModeImportSelector<Enabl
 	 * Return the imports to use if the {@link AdviceMode} is set to {@link AdviceMode#PROXY}.
 	 * <p>Take care of adding the necessary JSR-107 import if it is available.
 	 */
+	/**
+	 * 如果{@link AdviceMode}设置为{@link AdviceMode#PROXY}，则返回要使用的导入。
+	 * <p>负责添加必要的JSR-107导入(如果可用)。
+	 */
 	private String[] getProxyImports() {
 		List<String> result = new ArrayList<>(3);
 		result.add(AutoProxyRegistrar.class.getName());
@@ -95,6 +119,10 @@ public class CachingConfigurationSelector extends AdviceModeImportSelector<Enabl
 	/**
 	 * Return the imports to use if the {@link AdviceMode} is set to {@link AdviceMode#ASPECTJ}.
 	 * <p>Take care of adding the necessary JSR-107 import if it is available.
+	 */
+	/**
+	 * 如果{@link AdviceMode}设置为{@link AdviceMode#ASPECTJ}，则返回要使用的导入。
+	 * <p>负责添加必要的JSR-107导入(如果可用)。
 	 */
 	private String[] getAspectJImports() {
 		List<String> result = new ArrayList<>(2);

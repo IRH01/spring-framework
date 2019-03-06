@@ -16,16 +16,20 @@
 
 package org.springframework.cache.support;
 
-import java.util.concurrent.Callable;
-
 import org.springframework.cache.Cache;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
+
+import java.util.concurrent.Callable;
 
 /**
  * A no operation {@link Cache} implementation suitable for disabling caching.
  *
  * <p>Will simply accept any items into the cache not actually storing them.
+ * <p>
+ * *无操作{@link Cache}实现，适合禁用缓存。
+ * *
+ * * <p>只接受缓存中没有实际存储的任何项。
  *
  * @author Costin Leau
  * @author Stephane Nicoll
@@ -38,6 +42,8 @@ public class NoOpCache implements Cache {
 
 	/**
 	 * Create a {@link NoOpCache} instance with the specified name.
+	 * 创建具有指定名称的{@link NoOpCache}实例。
+	 *
 	 * @param name the name of the cache
 	 */
 	public NoOpCache(String name) {
@@ -73,8 +79,7 @@ public class NoOpCache implements Cache {
 	public <T> T get(Object key, Callable<T> valueLoader) {
 		try {
 			return valueLoader.call();
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			throw new ValueRetrievalException(key, valueLoader, ex);
 		}
 	}

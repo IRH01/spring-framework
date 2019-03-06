@@ -16,13 +16,13 @@
 
 package org.springframework.cache.concurrent;
 
-import java.util.concurrent.ConcurrentMap;
-
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
+
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * {@link FactoryBean} for easy configuration of a {@link ConcurrentMapCache}
@@ -35,6 +35,21 @@ import org.springframework.util.StringUtils;
  *
  * @author Costin Leau
  * @author Juergen Hoeller
+ * @since 3.1
+ */
+
+/**
+ * {@link FactoryBean}方便配置{@link ConcurrentMapCache}
+ * 在Spring容器中使用时。可以通过bean属性配置;
+ * 使用指定的Spring bean名称作为默认缓存名称。
+ *
+ * <p>用于测试或简单的缓存场景，通常结合使用
+ * 具有{@link org.springframework.cache.support。SimpleCacheManager}或
+ * 动态通过{@link ConcurrentMapCacheManager}。
+ * <p>
+ * 作者Costin Leau
+ * 作者Juergen Hoeller
+ *
  * @since 3.1
  */
 public class ConcurrentMapCacheFactoryBean
@@ -53,6 +68,7 @@ public class ConcurrentMapCacheFactoryBean
 
 	/**
 	 * Specify the name of the cache.
+	 * 指定缓存的名称。
 	 * <p>Default is "" (empty String).
 	 */
 	public void setName(String name) {
@@ -61,7 +77,9 @@ public class ConcurrentMapCacheFactoryBean
 
 	/**
 	 * Specify the ConcurrentMap to use as an internal store
+	 * 指定要用作内部存储的ConcurrentMap
 	 * (possibly pre-populated).
+	 * (可能是预填充)。
 	 * <p>Default is a standard {@link java.util.concurrent.ConcurrentHashMap}.
 	 */
 	public void setStore(ConcurrentMap<Object, Object> store) {
@@ -72,6 +90,11 @@ public class ConcurrentMapCacheFactoryBean
 	 * Set whether to allow {@code null} values
 	 * (adapting them to an internal null holder value).
 	 * <p>Default is "true".
+	 */
+	/**
+	 * 设置是否允许{@code null}值
+	 * (将它们调整为内部null holder值)。
+	 * <p>默认为“true”。
 	 */
 	public void setAllowNullValues(boolean allowNullValues) {
 		this.allowNullValues = allowNullValues;

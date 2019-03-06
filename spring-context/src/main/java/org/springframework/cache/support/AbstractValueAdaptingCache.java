@@ -31,6 +31,20 @@ import org.springframework.lang.Nullable;
  * @author Juergen Hoeller
  * @since 4.2.2
  */
+
+/**
+ * 需要调整的{@link Cache}实现的公共基类
+ * {@code null}之前的值(可能还有其他这样的特殊值)
+ * 将它们传递到底层存储。
+ *
+ * <p>透明地将给定的{@code null}用户值替换为内部值
+ * {@link NullValue#INSTANCE}，如果配置为支持{@code null}值
+ * (如{@link #isAllowNullValues()}所示。
+ * <p>
+ * 作者Juergen Hoeller
+ *
+ * @since 4.2.2
+ */
 public abstract class AbstractValueAdaptingCache implements Cache {
 
 	private final boolean allowNullValues;
@@ -38,6 +52,7 @@ public abstract class AbstractValueAdaptingCache implements Cache {
 
 	/**
 	 * Create an {@code AbstractValueAdaptingCache} with the given setting.
+	 *
 	 * @param allowNullValues whether to allow for {@code null} values
 	 */
 	protected AbstractValueAdaptingCache(boolean allowNullValues) {
@@ -73,6 +88,8 @@ public abstract class AbstractValueAdaptingCache implements Cache {
 
 	/**
 	 * Perform an actual lookup in the underlying store.
+	 * 在底层存储中执行实际的查找。
+	 *
 	 * @param key the key whose associated value is to be returned
 	 * @return the raw store value for the key, or {@code null} if none
 	 */
@@ -83,8 +100,15 @@ public abstract class AbstractValueAdaptingCache implements Cache {
 	/**
 	 * Convert the given value from the internal store to a user value
 	 * returned from the get method (adapting {@code null}).
+	 *
 	 * @param storeValue the store value
 	 * @return the value to return to the user
+	 */
+	/**
+	 * 将给定的值从内部存储转换为用户值
+	 * 从get方法返回(自适应{@code null})。
+	 *
+	 * @param storeValue 返回要返回给用户的值
 	 */
 	@Nullable
 	protected Object fromStoreValue(@Nullable Object storeValue) {
@@ -97,8 +121,16 @@ public abstract class AbstractValueAdaptingCache implements Cache {
 	/**
 	 * Convert the given user value, as passed into the put method,
 	 * to a value in the internal store (adapting {@code null}).
+	 *
 	 * @param userValue the given user value
 	 * @return the value to store
+	 */
+	/**
+	 * 将给定的用户值转换为传入put方法的值，
+	 * 到内部存储中的一个值(调整{@code null})。
+	 *
+	 * @param userValue 指定的用户值
+	 * @返回要存储的值
 	 */
 	protected Object toStoreValue(@Nullable Object userValue) {
 		if (userValue == null) {
@@ -115,8 +147,17 @@ public abstract class AbstractValueAdaptingCache implements Cache {
 	 * Wrap the given store value with a {@link SimpleValueWrapper}, also going
 	 * through {@link #fromStoreValue} conversion. Useful for {@link #get(Object)}
 	 * and {@link #putIfAbsent(Object, Object)} implementations.
+	 *
 	 * @param storeValue the original value
 	 * @return the wrapped value
+	 */
+	/**
+	 * 使用{@link SimpleValueWrapper}包装给定的存储值
+	 * 通过{@link #fromStoreValue}转换。用于{@link #get(Object)}
+	 * 和{@link #putIfAbsent(Object, Object)}实现。
+	 *
+	 * @param storeValue 初始值
+	 * @返回包装的值
 	 */
 	@Nullable
 	protected Cache.ValueWrapper toValueWrapper(@Nullable Object storeValue) {
