@@ -8,6 +8,16 @@
  * in MethodInterceptor, to allow their use in another AOP framework supporting the AOP Alliance interfaces.
  *
  * <p>These adapters do not depend on any other Spring framework classes to allow such usage.
+ * <p>
+ * SPI包允许Spring AOP框架处理任意的通知类型。
+ * *
+ * * <p只想要<i>的>用户使用的是</i> Spring AOP框架，而不是扩展
+ * *其功能，不需要自己关心这个包。
+ * *
+ * <p>您可能希望使用这些适配器来包装特定于spring的建议，比如MethodBeforeAdvice，
+ * *在MethodInterceptor中，允许在支持AOP联盟接口的另一个AOP框架中使用它们。
+ * *
+ * 这些适配器不依赖于任何其他Spring框架类来允许这样的使用。
  */
 @NonNullApi
 @NonNullFields

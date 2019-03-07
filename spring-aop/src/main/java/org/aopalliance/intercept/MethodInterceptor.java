@@ -38,6 +38,13 @@ package org.aopalliance.intercept;
  * </pre>
  *
  * @author Rod Johnson
+ * 在接口到达目标的路上拦截对接口的调用。这些
+ * *嵌套在目标的“顶部”。
+ * *
+ * * <p>用户应该实现{@link #invoke(MethodInvocation)}
+ * 方法修改原始行为。例如:
+ * 实现跟踪拦截器(跟踪
+ * *拦截方法(s)):
  */
 @FunctionalInterface
 public interface MethodInterceptor extends Interceptor {
@@ -46,11 +53,12 @@ public interface MethodInterceptor extends Interceptor {
 	 * Implement this method to perform extra treatments before and
 	 * after the invocation. Polite implementations would certainly
 	 * like to invoke {@link Joinpoint#proceed()}.
+	 *
 	 * @param invocation the method invocation joinpoint
 	 * @return the result of the call to {@link Joinpoint#proceed()};
 	 * might be intercepted by the interceptor
 	 * @throws Throwable if the interceptors or the target object
-	 * throws an exception
+	 *                   throws an exception
 	 */
 	Object invoke(MethodInvocation invocation) throws Throwable;
 

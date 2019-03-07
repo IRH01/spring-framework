@@ -16,13 +16,13 @@
 
 package org.springframework.cache.interceptor;
 
-import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.context.expression.MethodBasedEvaluationContext;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.lang.Nullable;
+
+import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Cache specific evaluation context that adds a method parameters as SpEL
@@ -36,6 +36,18 @@ import org.springframework.lang.Nullable;
  *
  * <p>To limit the creation of objects, an ugly constructor is used
  * (rather then a dedicated 'closure'-like class for deferred execution).
+ * <p>
+ * *缓存特定的计算上下文，该上下文将方法参数添加为SpEL
+ * *变量，以一种惰性的方式。懒惰的天性消除了不必要的东西
+ * 解析类的字节码以发现参数。
+ * *
+ * * <p>还定义了一组“不可用变量”(即应该不可用的变量)
+ * *当它们被访问时，以正确的方式导致异常)。这很有用
+ * 验证一个条件不匹配，即使不是所有的潜在变量
+ * *。
+ * *
+ * * <p>为了限制对象的创建，使用了一个丑陋的构造函数
+ * *(而不是一个专门的类似于“闭包”的类，用于延迟执行)。
  *
  * @author Costin Leau
  * @author Stephane Nicoll
@@ -48,7 +60,7 @@ class CacheEvaluationContext extends MethodBasedEvaluationContext {
 
 
 	CacheEvaluationContext(Object rootObject, Method method, Object[] arguments,
-			ParameterNameDiscoverer parameterNameDiscoverer) {
+						   ParameterNameDiscoverer parameterNameDiscoverer) {
 
 		super(rootObject, method, arguments, parameterNameDiscoverer);
 	}

@@ -1,5 +1,7 @@
 /**
  * Support package for the Java 6 ServiceLoader facility.
+ * <p>
+ * * Java 6 ServiceLoader功能的支持包。
  */
 @NonNullApi
 @NonNullFields

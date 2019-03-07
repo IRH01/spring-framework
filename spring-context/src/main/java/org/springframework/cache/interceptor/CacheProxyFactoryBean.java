@@ -37,12 +37,25 @@ import org.springframework.cache.CacheManager;
  * {@link org.springframework.cache.annotation.Cacheable @Cacheable} annotation.</strong>
  * See the <a href="http://bit.ly/p9rIvx">declarative annotation-based caching</a> section
  * of the Spring reference documentation for more information.
+ * <p>
+ * *代理工厂bean，用于简化声明式缓存处理。
+ * *这是标准AOP的一种方便的替代方案
+ * * { @link org.springframework.aop.framework.ProxyFactoryBean }
+ * *带有单独的{@link CacheInterceptor}定义。
+ * *
+ * * <p>这个类被设计成便于声明式缓存划分:即包装
+ * *一个带有缓存代理的单例目标对象，代理所有的接口
+ * *目标实现。主要用于第三方框架集成。
+ * * <强>用户应该喜欢{@code cache:} XML命名空间
+ * * { @link org.springframework.cache.annotation。缓存@Cacheable }注释。< /强>
+ * *参见<a href="http://bit "。声明式基于注释的缓存</a>节
+ * *有关更多信息，请参阅Spring参考文档。
  *
  * @author Costin Leau
  * @author Juergen Hoeller
- * @since 3.1
  * @see org.springframework.aop.framework.ProxyFactoryBean
  * @see CacheInterceptor
+ * @since 3.1
  */
 @SuppressWarnings("serial")
 public class CacheProxyFactoryBean extends AbstractSingletonProxyFactoryBean
@@ -55,6 +68,7 @@ public class CacheProxyFactoryBean extends AbstractSingletonProxyFactoryBean
 
 	/**
 	 * Set one or more sources to find cache operations.
+	 *
 	 * @see CacheInterceptor#setCacheOperationSources
 	 */
 	public void setCacheOperationSources(CacheOperationSource... cacheOperationSources) {
@@ -65,8 +79,9 @@ public class CacheProxyFactoryBean extends AbstractSingletonProxyFactoryBean
 	 * Set the default {@link KeyGenerator} that this cache aspect should delegate to
 	 * if no specific key generator has been set for the operation.
 	 * <p>The default is a {@link SimpleKeyGenerator}.
-	 * @since 5.0.3
+	 *
 	 * @see CacheInterceptor#setKeyGenerator
+	 * @since 5.0.3
 	 */
 	public void setKeyGenerator(KeyGenerator keyGenerator) {
 		this.cacheInterceptor.setKeyGenerator(keyGenerator);
@@ -77,8 +92,9 @@ public class CacheProxyFactoryBean extends AbstractSingletonProxyFactoryBean
 	 * to if no specific cache resolver has been set for the operation.
 	 * <p>The default resolver resolves the caches against their names and the
 	 * default cache manager.
-	 * @since 5.0.3
+	 *
 	 * @see CacheInterceptor#setCacheResolver
+	 * @since 5.0.3
 	 */
 	public void setCacheResolver(CacheResolver cacheResolver) {
 		this.cacheInterceptor.setCacheResolver(cacheResolver);
@@ -87,8 +103,9 @@ public class CacheProxyFactoryBean extends AbstractSingletonProxyFactoryBean
 	/**
 	 * Set the {@link CacheManager} to use to create a default {@link CacheResolver}.
 	 * Replace the current {@link CacheResolver}, if any.
-	 * @since 5.0.3
+	 *
 	 * @see CacheInterceptor#setCacheManager
+	 * @since 5.0.3
 	 */
 	public void setCacheManager(CacheManager cacheManager) {
 		this.cacheInterceptor.setCacheManager(cacheManager);
@@ -98,6 +115,7 @@ public class CacheProxyFactoryBean extends AbstractSingletonProxyFactoryBean
 	 * Set a pointcut, i.e. a bean that triggers conditional invocation of the
 	 * {@link CacheInterceptor} depending on the method and attributes passed.
 	 * <p>Note: Additional interceptors are always invoked.
+	 *
 	 * @see #setPreInterceptors
 	 * @see #setPostInterceptors
 	 */

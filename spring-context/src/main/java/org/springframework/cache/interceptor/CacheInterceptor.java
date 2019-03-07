@@ -16,13 +16,12 @@
 
 package org.springframework.cache.interceptor;
 
-import java.io.Serializable;
-import java.lang.reflect.Method;
-
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-
 import org.springframework.lang.Nullable;
+
+import java.io.Serializable;
+import java.lang.reflect.Method;
 
 /**
  * AOP Alliance MethodInterceptor for declarative cache
@@ -35,6 +34,17 @@ import org.springframework.lang.Nullable;
  * in the correct order.
  *
  * <p>CacheInterceptors are thread-safe.
+ * <p>
+ * 面向声明性缓存的AOP Alliance MethodInterceptor
+ * *使用公共Spring缓存基础设施进行管理
+ * * ({@link org.springframework.cache.Cache})。
+ * *
+ * * <p>派生自{@link CacheAspectSupport}类
+ * *包含与Spring底层缓存API的集成。
+ * * CacheInterceptor只调用相关的超类方法
+ * 按正确的顺序。
+ * *
+ * * <p> cache拦截器是线程安全的。
  *
  * @author Costin Leau
  * @author Juergen Hoeller
@@ -51,16 +61,14 @@ public class CacheInterceptor extends CacheAspectSupport implements MethodInterc
 		CacheOperationInvoker aopAllianceInvoker = () -> {
 			try {
 				return invocation.proceed();
-			}
-			catch (Throwable ex) {
+			} catch (Throwable ex) {
 				throw new CacheOperationInvoker.ThrowableWrapper(ex);
 			}
 		};
 
 		try {
 			return execute(aopAllianceInvoker, invocation.getThis(), method, invocation.getArguments());
-		}
-		catch (CacheOperationInvoker.ThrowableWrapper th) {
+		} catch (CacheOperationInvoker.ThrowableWrapper th) {
 			throw th.getOriginal();
 		}
 	}

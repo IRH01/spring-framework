@@ -23,10 +23,15 @@ import java.lang.reflect.Method;
  *
  * <p>The cache operation is static and independent of a particular invocation;
  * this interface gathers the operation and a particular invocation.
+ * <p>
+ * *缓存操作调用上下文的表示。
+ * *
+ * * <p>缓存操作是静态的，独立于特定的调用;
+ * *此接口收集操作和特定调用。
  *
+ * @param <O> the operation type
  * @author Stephane Nicoll
  * @since 4.1
- * @param <O> the operation type
  */
 public interface CacheOperationInvocationContext<O extends BasicOperation> {
 

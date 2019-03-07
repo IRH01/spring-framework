@@ -23,6 +23,13 @@ package org.springframework.cache.interceptor;
  * provide a special exception that should be used to wrap any
  * exception that was thrown by the underlying invocation.
  * Callers are expected to handle this issue type specifically.
+ * <p>
+ * 抽象缓存操作的调用。
+ * *
+ * * <p>不提供传输已检查异常的方法，但是
+ * *提供一个应该用于包装any的特殊异常
+ * *底层调用引发的异常。
+ * *调用者需要专门处理此问题类型。
  *
  * @author Stephane Nicoll
  * @since 4.1
@@ -33,6 +40,7 @@ public interface CacheOperationInvoker {
 	/**
 	 * Invoke the cache operation defined by this instance. Wraps any exception
 	 * that is thrown during the invocation in a {@link ThrowableWrapper}.
+	 *
 	 * @return the result of the operation
 	 * @throws ThrowableWrapper if an error occurred while invoking the operation
 	 */

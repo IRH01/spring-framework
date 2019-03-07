@@ -28,6 +28,15 @@ import org.springframework.lang.Nullable;
  * <p>Typically, failing to retrieve an object from the cache with
  * a given id can be transparently managed as a cache miss by not
  * throwing back such exception.
+ * <p>
+ * *处理缓存相关错误的策略。在大多数情况下，任何
+ * 由提供程序抛出的异常应该简单地返回到
+ * *客户端，但在某些情况下，基础设施可能需要
+ * *以不同的方式处理缓存提供程序异常。
+ * *
+ * * <p>，通常从缓存中检索对象失败
+ * 一个给定的id可以被not透明地管理为cache miss
+ * *抛出此类异常。
  *
  * @author Stephane Nicoll
  * @since 4.1
@@ -38,9 +47,10 @@ public interface CacheErrorHandler {
 	 * Handle the given runtime exception thrown by the cache provider when
 	 * retrieving an item with the specified {@code key}, possibly
 	 * rethrowing it as a fatal exception.
+	 *
 	 * @param exception the exception thrown by the cache provider
-	 * @param cache the cache
-	 * @param key the key used to get the item
+	 * @param cache     the cache
+	 * @param key       the key used to get the item
 	 * @see Cache#get(Object)
 	 */
 	void handleCacheGetError(RuntimeException exception, Cache cache, Object key);
@@ -49,10 +59,11 @@ public interface CacheErrorHandler {
 	 * Handle the given runtime exception thrown by the cache provider when
 	 * updating an item with the specified {@code key} and {@code value},
 	 * possibly rethrowing it as a fatal exception.
+	 *
 	 * @param exception the exception thrown by the cache provider
-	 * @param cache the cache
-	 * @param key the key used to update the item
-	 * @param value the value to associate with the key
+	 * @param cache     the cache
+	 * @param key       the key used to update the item
+	 * @param value     the value to associate with the key
 	 * @see Cache#put(Object, Object)
 	 */
 	void handleCachePutError(RuntimeException exception, Cache cache, Object key, @Nullable Object value);
@@ -61,9 +72,10 @@ public interface CacheErrorHandler {
 	 * Handle the given runtime exception thrown by the cache provider when
 	 * clearing an item with the specified {@code key}, possibly rethrowing
 	 * it as a fatal exception.
+	 *
 	 * @param exception the exception thrown by the cache provider
-	 * @param cache the cache
-	 * @param key the key used to clear the item
+	 * @param cache     the cache
+	 * @param key       the key used to clear the item
 	 */
 	void handleCacheEvictError(RuntimeException exception, Cache cache, Object key);
 
@@ -71,8 +83,9 @@ public interface CacheErrorHandler {
 	 * Handle the given runtime exception thrown by the cache provider when
 	 * clearing the specified {@link Cache}, possibly rethrowing it as a
 	 * fatal exception.
+	 *
 	 * @param exception the exception thrown by the cache provider
-	 * @param cache the cache to clear
+	 * @param cache     the cache to clear
 	 */
 	void handleCacheClearError(RuntimeException exception, Cache cache);
 

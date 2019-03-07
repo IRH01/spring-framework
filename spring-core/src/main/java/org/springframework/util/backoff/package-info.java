@@ -1,5 +1,6 @@
 /**
  * A generic back-off abstraction.
+ * *一个通用的回退抽象。
  */
 @NonNullApi
 @NonNullFields

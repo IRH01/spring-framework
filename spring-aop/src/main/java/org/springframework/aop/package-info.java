@@ -16,6 +16,24 @@
  *
  * <p>Spring AOP can be used programmatically or (preferably)
  * integrated with the Spring IoC container.
+ * <p>
+ * 核心Spring AOP接口，建立在AOP联盟AOP互操作性接口的基础上。
+ * *
+ * 任何AOP Alliance MethodInterceptor在Spring中都是可用的。
+ * *
+ * * <br>Spring AOP还提供:
+ * * < ul >
+ * <李>介绍支持
+ * * <li>一个切入点抽象，支持“静态”切入点
+ * *(基于类和方法)和“动态”切入点(也考虑方法参数)。
+ * *目前没有切入点的AOP联盟接口。
+ * * <li>全方位的建议类型，包括前后左右，返回和抛出建议。
+ * * <li>可扩展性，允许任意自定义通知类型
+ * *无需修改核心框架即可插入。
+ * * < / ul >
+ * *
+ * * <p>Spring AOP可以通过编程使用，或者(最好)
+ * *与Spring IoC容器集成。
  */
 @NonNullApi
 @NonNullFields

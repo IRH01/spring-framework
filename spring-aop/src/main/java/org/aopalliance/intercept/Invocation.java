@@ -23,6 +23,11 @@ package org.aopalliance.intercept;
  * interceptor.
  *
  * @author Rod Johnson
+ * <p>
+ * 这个接口表示程序中的调用。
+ * *
+ * 调用是一个连接点，可以被一个
+ * *拦截器。
  */
 public interface Invocation extends Joinpoint {
 
@@ -30,7 +35,13 @@ public interface Invocation extends Joinpoint {
 	 * Get the arguments as an array object.
 	 * It is possible to change element values within this
 	 * array to change the arguments.
+	 *
 	 * @return the argument of the invocation
+	 * <p>
+	 * *获取参数作为数组对象。
+	 * *可以在其中更改元素值
+	 * *数组来更改参数。
+	 * *
 	 */
 	Object[] getArguments();
 

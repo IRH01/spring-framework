@@ -40,19 +40,28 @@ package org.aopalliance.intercept;
  * </pre>
  *
  * @author Rod Johnson
+ * <p>
+ * 拦截新对象的构造。
+ * *
+ * * <p>用户应该实现{@link
+ * * #construct(ConstructorInvocation)}方法来修改原始的
+ * *行为。例如，下面的类实现了一个单例
+ * 拦截器(只允许一个唯一的实例被拦截
+ * *类):
  */
-public interface ConstructorInterceptor extends Interceptor  {
+public interface ConstructorInterceptor extends Interceptor {
 
 	/**
 	 * Implement this method to perform extra treatments before and
 	 * after the construction of a new object. Polite implementations
 	 * would certainly like to invoke {@link Joinpoint#proceed()}.
+	 *
 	 * @param invocation the construction joinpoint
 	 * @return the newly created object, which is also the result of
 	 * the call to {@link Joinpoint#proceed()}; might be replaced by
 	 * the interceptor
 	 * @throws Throwable if the interceptors or the target object
-	 * throws an exception
+	 *                   throws an exception
 	 */
 	Object construct(ConstructorInvocation invocation) throws Throwable;
 

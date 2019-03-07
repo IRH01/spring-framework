@@ -23,11 +23,14 @@ import org.springframework.util.function.SingletonSupplier;
 /**
  * A base component for invoking {@link Cache} operations and using a
  * configurable {@link CacheErrorHandler} when an exception occurs.
+ * <p>
+ * *用于调用{@link Cache}操作和使用A的基本组件
+ * *发生异常时可配置{@link CacheErrorHandler}
  *
  * @author Stephane Nicoll
  * @author Juergen Hoeller
- * @since 4.1
  * @see org.springframework.cache.interceptor.CacheErrorHandler
+ * @since 4.1
  */
 public abstract class AbstractCacheInvoker {
 
@@ -47,6 +50,10 @@ public abstract class AbstractCacheInvoker {
 	 * Set the {@link CacheErrorHandler} instance to use to handle errors
 	 * thrown by the cache provider. By default, a {@link SimpleCacheErrorHandler}
 	 * is used who throws any exception as is.
+	 * <p>
+	 * *设置{@link CacheErrorHandler}实例来处理错误
+	 * *由缓存提供程序抛出。默认情况下，{@link SimpleCacheErrorHandler}
+	 * *用于按原样抛出任何异常。
 	 */
 	public void setErrorHandler(CacheErrorHandler errorHandler) {
 		this.errorHandler = SingletonSupplier.of(errorHandler);
@@ -65,14 +72,19 @@ public abstract class AbstractCacheInvoker {
 	 * invoke the error handler if an exception occurs. Return {@code null}
 	 * if the handler does not throw any exception, which simulates a cache
 	 * miss in case of error.
+	 * <p>
+	 * *在指定的{@link Cache}和上执行{@link Cache#get(Object)}
+	 * 如果发生异常，调用错误处理程序。返回{ @code空}
+	 * *如果处理程序没有抛出任何异常，则模拟缓存
+	 * *出错时未命中。
+	 *
 	 * @see Cache#get(Object)
 	 */
 	@Nullable
 	protected Cache.ValueWrapper doGet(Cache cache, Object key) {
 		try {
 			return cache.get(key);
-		}
-		catch (RuntimeException ex) {
+		} catch (RuntimeException ex) {
 			getErrorHandler().handleCacheGetError(ex, cache, key);
 			return null;  // If the exception is handled, return a cache miss
 		}
@@ -81,12 +93,14 @@ public abstract class AbstractCacheInvoker {
 	/**
 	 * Execute {@link Cache#put(Object, Object)} on the specified {@link Cache}
 	 * and invoke the error handler if an exception occurs.
+	 * <p>
+	 * *在指定的{@link Cache}上执行{@link Cache#put(Object, Object)}
+	 * *并在异常发生时调用错误处理程序。
 	 */
 	protected void doPut(Cache cache, Object key, @Nullable Object result) {
 		try {
 			cache.put(key, result);
-		}
-		catch (RuntimeException ex) {
+		} catch (RuntimeException ex) {
 			getErrorHandler().handleCachePutError(ex, cache, key, result);
 		}
 	}
@@ -94,12 +108,14 @@ public abstract class AbstractCacheInvoker {
 	/**
 	 * Execute {@link Cache#evict(Object)} on the specified {@link Cache} and
 	 * invoke the error handler if an exception occurs.
+	 * <p>
+	 * *在指定的{@link Cache}和上执行{@link Cache#evict(Object)}
+	 * 如果发生异常，调用错误处理程序。
 	 */
 	protected void doEvict(Cache cache, Object key) {
 		try {
 			cache.evict(key);
-		}
-		catch (RuntimeException ex) {
+		} catch (RuntimeException ex) {
 			getErrorHandler().handleCacheEvictError(ex, cache, key);
 		}
 	}
@@ -111,8 +127,7 @@ public abstract class AbstractCacheInvoker {
 	protected void doClear(Cache cache) {
 		try {
 			cache.clear();
-		}
-		catch (RuntimeException ex) {
+		} catch (RuntimeException ex) {
 			getErrorHandler().handleCacheClearError(ex, cache);
 		}
 	}

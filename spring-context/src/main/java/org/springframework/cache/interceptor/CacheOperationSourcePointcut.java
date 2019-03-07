@@ -16,18 +16,21 @@
 
 package org.springframework.cache.interceptor;
 
-import java.io.Serializable;
-import java.lang.reflect.Method;
-
 import org.springframework.aop.support.StaticMethodMatcherPointcut;
 import org.springframework.cache.CacheManager;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
+import java.io.Serializable;
+import java.lang.reflect.Method;
+
 /**
  * A Pointcut that matches if the underlying {@link CacheOperationSource}
  * has an attribute for a given method.
+ * <p>
+ * *一个切入点，如果下面的{@link CacheOperationSource}
+ * 具有给定方法的属性。
  *
  * @author Costin Leau
  * @author Juergen Hoeller

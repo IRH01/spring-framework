@@ -27,6 +27,12 @@ import java.lang.reflect.Method;
  *
  * @author Rod Johnson
  * @see MethodInterceptor
+ * <p>
+ * *对方法的调用的描述，给出给截取程序
+ * *在方法调用。
+ * *
+ * 方法调用是一个连接点，可以被A拦截
+ * *方法拦截器。
  */
 public interface MethodInvocation extends Invocation {
 
@@ -34,6 +40,7 @@ public interface MethodInvocation extends Invocation {
 	 * Get the method being called.
 	 * <p>This method is a friendly implementation of the
 	 * {@link Joinpoint#getStaticPart()} method (same result).
+	 *
 	 * @return the method being called
 	 */
 	Method getMethod();

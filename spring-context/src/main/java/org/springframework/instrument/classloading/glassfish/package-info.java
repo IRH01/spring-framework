@@ -1,5 +1,7 @@
 /**
  * Support for class instrumentation on GlassFish.
+ * <p>
+ * * Support for class instrumentation on GlassFish.
  */
 @NonNullApi
 @NonNullFields

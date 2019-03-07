@@ -1,5 +1,7 @@
 /**
  * Core interfaces for Spring's scripting support.
+ * <p>
+ * * Spring脚本支持的核心接口。
  */
 @NonNullApi
 @NonNullFields

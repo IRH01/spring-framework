@@ -1,5 +1,7 @@
 /**
  * Java 5 annotation for asynchronous method execution.
+ * <p>
+ * *用于异步方法执行的Java 5注释。
  */
 @NonNullApi
 @NonNullFields

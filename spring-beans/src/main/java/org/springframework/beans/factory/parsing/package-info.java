@@ -1,5 +1,6 @@
 /**
  * Support infrastructure for bean definition parsing.
+ * 支持bean定义解析的基础设施。
  */
 @NonNullApi
 @NonNullFields

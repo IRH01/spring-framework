@@ -46,10 +46,10 @@ import java.util.Set;
  */
 
 /**
- * {@link org.springframe .cache.interceptor. cacheoperationsource的实现
+ * {@link org.springframework.cache.interceptor.CacheOperationSource CacheOperationSource}的实现
  * 接口，用于以注释格式缓存元数据。
  *
- * <p>这个类读取Spring的{@link Cacheable}， {@link CachePut}和{@link cache驱逐t}
+ * <p>这个类读取Spring的{@link Cacheable}， {@link CachePut}和{@link CacheEvict}
  * 注释并向Spring的缓存公开相应的缓存操作定义
  * 基础设施。这个类也可以作为定制的基类
  * { @code CacheOperationSource }。

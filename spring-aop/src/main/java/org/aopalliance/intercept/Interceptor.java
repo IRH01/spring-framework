@@ -63,6 +63,19 @@ import org.aopalliance.aop.Advice;
  *
  * @author Rod Johnson
  * @see Joinpoint
+ * <p>
+ * 这个接口表示一个通用的拦截器。
+ * *
+ * 一个通用的拦截器可以拦截发生的运行时事件
+ * *在基本程序中。那些事件被具体化了
+ * *连接点。运行时连接点可以是invocations、field
+ * *访问异常……
+ * *
+ * * <p>此接口不直接使用。使用sub-interfaces
+ * 拦截特定事件。例如，下面的类
+ * *实现一些特定的拦截器，以实现a
+ * *调试器:
+ * *
  */
 public interface Interceptor extends Advice {
 
