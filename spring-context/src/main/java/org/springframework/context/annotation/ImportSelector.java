@@ -22,6 +22,10 @@ import org.springframework.core.type.AnnotationMetadata;
  * Interface to be implemented by types that determine which @{@link Configuration}
  * class(es) should be imported based on a given selection criteria, usually one or more
  * annotation attributes.
+ * <p>
+ * *接口由决定哪个@{@link Configuration}的类型实现
+ * *应根据给定的选择条件(通常是一个或多个)导入类
+ * *注释属性。
  *
  * <p>An {@link ImportSelector} may implement any of the following
  * {@link org.springframework.beans.factory.Aware Aware} interfaces, and their respective
@@ -38,12 +42,17 @@ import org.springframework.core.type.AnnotationMetadata;
  * {@code @Configuration} classes have been processed (see {@link DeferredImportSelector}
  * for details).
  *
+ * <p>导入选择器通常以与常规{@code @Import}相同的方式处理
+ * 但是，也可以将导入的选择推迟到全部
+ * * {@code @Configuration}类已被处理(参见{@link DeferredImportSelector})
+ * * 详情)。
+ *
  * @author Chris Beams
- * @since 3.1
  * @see DeferredImportSelector
  * @see Import
  * @see ImportBeanDefinitionRegistrar
  * @see Configuration
+ * @since 3.1
  */
 public interface ImportSelector {
 
